@@ -1,0 +1,6 @@
+[submodule "compiler"]
+	path = compiler
+	url = https://github.com/naominitel/r7.rs-compiler.git
+[submodule "vm"]
+	path = vm
+	url = https://github.com/naominitel/r7.rs-VM.git
