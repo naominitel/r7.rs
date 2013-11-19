@@ -1,0 +1,16 @@
+before_install:
+    - yes | sudo add-apt-repository ppa:hansjorg/rust
+    - sudo apt-get update
+install:
+    - sudo apt-get install rust-nightly
+    - sudo apt-get install cabal-install
+script:
+    - cd compiler/
+    - cabal update
+    - cabal install --only-dependencies --enable-tests
+    - cabal configure --enable-tests && cabal build && cabal test
+    - cp dist/build/scmc/scmc .
+    - cd ../vm
+    - rustc main.rs
+    - cd ..
+    - ./tests/run-tests.sh

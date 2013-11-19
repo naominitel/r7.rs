@@ -1,6 +1,8 @@
 r7.rs
 =====
 
+[![Build Status](https://travis-ci.org/naominitel/r7.rs.png?branch=master)](https://travis-ci.org/naominitel/r7.rs)
+
 An implementation of R7RS Scheme. Consists of a bytecode compiler and a virtual machine.
 
 ### Testing
