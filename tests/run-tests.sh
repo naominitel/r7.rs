@@ -7,9 +7,14 @@
 
 TESTDIR=tests/build/
 
-if ! [ -f $TESTDIR ]; then
-    mkdir $TESTDIR
+if ! [ -d $TESTDIR ]; then
+    mkdir -p $TESTDIR
 fi
+
+stop() {
+    rm -rf $TESTDIR
+    exit $1
+}
 
 echo -e "Running run-pass tests...\n"
 
@@ -19,8 +24,8 @@ for f in `ls tests/run-pass/*.scm`; do
     if [ $? -ne 0 ]; then
         echo "[FAILED] $f: Compiler failure."
         echo "Details:"
-        echo $OUT
-        exit 1
+        echo "$OUT"
+        stop 1
     fi
 
     OUT=`./vm/scmrun $TESTDIR/out.bin 2>&1`
@@ -28,8 +33,8 @@ for f in `ls tests/run-pass/*.scm`; do
     if [ $? -ne 0 ]; then
         echo "[FAILED] $f: Runtime failure."
         echo "Details:"
-        echo $OUT
-        exit 1
+        echo "$OUT"
+        stop 1
     fi
 
     echo "[PASSED] $f"
@@ -44,8 +49,8 @@ for f in `ls tests/run-fail/*.scm`; do
     if [ $? -ne 0 ]; then
         echo "[FAILED] $f: Compiler failure."
         echo "Details:"
-        echo $OUT
-        exit 1
+        echo "$OUT"
+        stop 1
     fi
 
     OUT=`./vm/scmrun $TESTDIR/out.bin 2>&1`
@@ -53,13 +58,12 @@ for f in `ls tests/run-fail/*.scm`; do
     if [ $? -eq 0 ]; then
         echo "[FAILED] $f: Test failure: program exited normally."
         echo "Details:"
-        echo $OUT
-        exit 1
+        echo "$OUT"
+        stop 1
     fi
 
     echo "[PASSED] $f"
 done
 
 echo "All passed."
-rm -rf $TESTDIR
-exit 0
+stop 0
