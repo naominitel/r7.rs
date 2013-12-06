@@ -1,6 +1,6 @@
 (define f
-    (let ((a 3))
-        (lambda (x) (+ x 3))))
+  (let ((a 3))
+    (lambda (x)
+      (+ x a))))
 
-(display (f 2))
-(newline)
+(assert (eq? 5 (f 2)))

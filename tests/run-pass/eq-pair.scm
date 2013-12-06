@@ -1,7 +1,3 @@
-(define (assert expr)
-  (if expr #t
-    (exit)))
-
 (let ((a (cons 1 2))
       (b (cons 2 3))
       (c (cons 1 2)))

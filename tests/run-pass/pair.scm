@@ -1,7 +1,3 @@
-(define (assert expr)
-  (if expr #t
-    (exit)))
-
 (let ((p (cons 1 2)))
   (begin
     (assert (eq? (car p) 1))
