@@ -4,6 +4,7 @@ before_install:
 install:
     - sudo apt-get install rust-nightly
     - sudo apt-get install cabal-install
+    - sudo apt-get install libgmp3-dev
 script:
     - cd compiler/
     - cabal update
@@ -11,6 +12,9 @@ script:
     - cabal configure --enable-tests && cabal build && cabal test
     - cp dist/build/scmc/scmc .
     - cd ../vm
-    - rustc main.rs
+    - git submodule init
+    - git submodule update
+    - rustc rust-gmp/gmp.rs `pkg-config --libs gmp`
+    - rustc main.rs -Lrust-gmp/
     - cd ..
     - ./tests/run-tests.sh
