@@ -1,0 +1,7 @@
+(display (list? (list))) (newline)
+(display (list? (list 1 2 3))) (newline)
+(display (list? (cons 1 2))) (newline)
+(display (list? (cons 1 (list)))) (newline)
+(display (list? (cons 1 (cons 2 (cons 3 (cons 4 (list))))))) (newline)
+(display (list? (cons 1 (cons 2 (cons 3 (cons 4 5)))))) (newline)
+(display (list? 2)) (newline)
